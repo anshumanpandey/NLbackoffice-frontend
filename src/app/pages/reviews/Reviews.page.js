@@ -4,13 +4,15 @@ import DataTable from 'react-data-table-component';
 import { useParams } from "react-router-dom";
 import { Dialog, DialogContent, DialogContentText, DialogTitle, DialogActions, Button, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
+import ReactPlayer from 'react-player'
 
-export const PaymentPage = () => {
+export const ReviewsPage = () => {
   const params = useParams()
   const [showModal, setShowModal] = useState(false);
+  const [showMediaModal, setShowMediaModal] = useState(false);
   const [users, setUsers] = useState([]);
   const [{ data, loading, error }, refetch] = useAxios({
-    url: '/booking/find'
+    url: '/review/find'
   }, { manual: true })
 
   const [deleteReq, doDelete] = useAxios({
@@ -38,11 +40,10 @@ export const PaymentPage = () => {
             progressPending={loading}
             data={users}
             columns={[
-              { name: 'Booking Number', selector: 'BookingNumber' },
-              { name: 'Booking Date', selector: 'BookingDate' },
-              { name: 'Transaction ID', selector: 'TransactionID' },
-              { name: 'Amount', selector: 'Amount' },
-              { name: 'Booking Status', selector: 'BookingStatus' },
+              { name: 'Feedback', selector: 'Feedback' },
+              { name: 'Player Name', selector: 'PlayerName' },
+              { name: 'Coach Name', selector: 'CoachName' },
+              { name: 'Rating', selector: 'Coach.FullName' },
               { name: 'Delete', cell: (row) => <DeleteIcon onClick={() => setShowModal(row)} style={{ cursor: "pointer" }} /> },
             ]}
           />
@@ -64,7 +65,7 @@ export const PaymentPage = () => {
               Cancel
           </Button>
             <Button disabled={deleteReq.loading} style={{ opacity: deleteReq.loading ? 0.5 : 1 }} onClick={() => {
-              doDelete({ url: `/booking/delete/${showModal._id}` })
+              doDelete({ url: `/review/delete/${showModal._id}` })
                 .then(() => setShowModal(false))
                 .then(() => refetch())
             }} color="primary">
@@ -77,4 +78,4 @@ export const PaymentPage = () => {
   );
 }
 
-export default PaymentPage;
+export default ReviewsPage;

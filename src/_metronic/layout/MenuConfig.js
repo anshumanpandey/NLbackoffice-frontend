@@ -36,6 +36,13 @@ export default {
         page: "bookings",
         toggle: "click",
       },
+      {
+        title: "Posts",
+        root: true,
+        alignment: "left",
+        page: "posts",
+        toggle: "click",
+      },
     ]
   }
 };
