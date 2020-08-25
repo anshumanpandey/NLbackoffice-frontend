@@ -27,28 +27,6 @@ export default {
         root: true,
         alignment: "left",
         toggle: "click",
-        submenu: [
-          {
-            title: "All",
-            bullet: "line",
-            page: "users"
-          },
-          {
-            title: "Player",
-            bullet: "line",
-            page: "users/player"
-          },
-          {
-            title: "Coach",
-            bullet: "line",
-            page: "users/coach"
-          },
-          {
-            title: "Unverified User",
-            bullet: "line",
-            page: "users"
-          },
-        ]
       },
     ]
   }
