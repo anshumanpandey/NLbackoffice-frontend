@@ -26,6 +26,14 @@ export default {
         title: "Users",
         root: true,
         alignment: "left",
+        page: "users",
+        toggle: "click",
+      },
+      {
+        title: "Bookings",
+        root: true,
+        alignment: "left",
+        page: "bookings",
         toggle: "click",
       },
     ]
