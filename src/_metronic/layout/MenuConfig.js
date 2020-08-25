@@ -43,6 +43,13 @@ export default {
         page: "posts",
         toggle: "click",
       },
+      {
+        title: "Review",
+        root: true,
+        alignment: "left",
+        page: "reviews",
+        toggle: "click",
+      },
     ]
   }
 };

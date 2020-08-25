@@ -8,6 +8,7 @@ import { LayoutSplashScreen } from "../../../_metronic";
 import { connect } from "react-redux";
 import BookingsPage from "../bookings/Bookings.page";
 import PostsPage from "../posts/Posts.page";
+import ReviewsPage from "../reviews/Reviews.page";
 
 const GoogleMaterialPage = lazy(() =>
   import("./google-material/GoogleMaterialPage")
@@ -34,6 +35,7 @@ function HomePage(props) {
         <Route path="/users" component={Users} />
         <Route path="/bookings" component={BookingsPage} />
         <Route path="/posts" component={PostsPage} />
+        <Route path="/reviews" component={ReviewsPage} />
         <Route path="/google-material" component={GoogleMaterialPage} />
         <Route path="/react-bootstrap" component={ReactBootstrapPage} />
         <Route path="/docs" component={DocsPage} />
