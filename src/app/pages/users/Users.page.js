@@ -2,13 +2,12 @@ import React, { useState, useEffect } from "react";
 import useAxios from 'axios-hooks'
 import DataTable from 'react-data-table-component';
 import { useParams } from "react-router-dom";
-import { Dialog, List, ListItem, Popover, ListItemText, DialogContent, TextField, DialogContentText, DialogTitle, DialogActions, Button, FormControl, InputLabel, Select, MenuItem, Typography } from '@material-ui/core';
+import { Dialog, List, ListItem, ListItemText, DialogContent, TextField, DialogContentText, DialogTitle, DialogActions, Button, FormControl, InputLabel, Select, MenuItem, Typography } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Lightbox } from "react-modal-image";
 
 export const OrderPage = () => {
   const params = useParams()
-  const [anchorEl, setAnchorEl] = React.useState(null);
   const [showModal, setShowModal] = useState(false);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [showImageModal, setShowImageModal] = useState(false);
