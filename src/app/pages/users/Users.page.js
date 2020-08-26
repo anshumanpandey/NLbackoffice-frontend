@@ -26,11 +26,11 @@ export const OrderPage = () => {
   }, [])
 
   useEffect(() => {
-    refetch()
-  }, [params.type])
-
-  useEffect(() => {
-    if (data) setUsers(data)
+    if (data) {
+      setUsers(data)
+      const found = data.find(d => d._id == params.id)
+      if (found) setShowDetailsModal(found)
+    }
   }, [loading])
 
   const handlePopoverClick = (url) => {

@@ -32,7 +32,7 @@ function HomePage(props) {
         }
         <Route path="/builder" component={Builder} />
         <Route path="/dashboard" component={Dashboard} />
-        <Route path="/users" component={Users} />
+        <Route path="/users/:id?" component={Users} />
         <Route path="/bookings" component={BookingsPage} />
         <Route path="/posts" component={PostsPage} />
         <Route path="/reviews" component={ReviewsPage} />

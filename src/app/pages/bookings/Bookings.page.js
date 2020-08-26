@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import useAxios from 'axios-hooks'
 import DataTable from 'react-data-table-component';
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { Dialog, List, ListItem, ListItemText, DialogContent, TextField, DialogContentText, DialogTitle, DialogActions, Button, FormControl, InputLabel, Select, MenuItem, Typography } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 
@@ -177,7 +177,7 @@ export const PaymentPage = () => {
               </div>
               <div className="form-group" style={{ width: '50%' }}>
                 <Typography color="textSecondary">
-                CancelledDateTime
+                  Cancelled DateTime
                 </Typography>
                 <Typography>
                   {showDetailsModal.CancelledDateTime || "N/A"}
@@ -190,17 +190,17 @@ export const PaymentPage = () => {
                 <Typography color="textSecondary">
                   Player
                 </Typography>
-                <Typography>
+                <Link style={{ color: "blue", textDecoration: 'underline', cursor: 'pointer' }} to={`users/${showDetailsModal.Player?._id}`}>
                   {showDetailsModal.Player?.FullName || "N/A"}
-                </Typography>
+                </Link>
               </div>
               <div className="form-group" style={{ width: '50%' }}>
                 <Typography color="textSecondary">
                   Coach
                 </Typography>
-                <Typography>
+                <Link style={{ color: "blue", textDecoration: 'underline', cursor: 'pointer' }} to={`users/${showDetailsModal.Coach?._id}`}>
                   {showDetailsModal.Coach?.FullName || "N/A"}
-                </Typography>
+                </Link>
               </div>
             </div>
           </DialogContent>
