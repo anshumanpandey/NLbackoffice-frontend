@@ -64,7 +64,7 @@ export const PaymentPage = () => {
               Cancel
           </Button>
             <Button disabled={deleteReq.loading} style={{ opacity: deleteReq.loading ? 0.5 : 1 }} onClick={() => {
-              doDelete({ url: `/booking/delete/${showModal._id}` })
+              doDelete({ url: `/booking/delete`, data: { id: showModal._id } })
                 .then(() => setShowModal(false))
                 .then(() => refetch())
             }} color="primary">

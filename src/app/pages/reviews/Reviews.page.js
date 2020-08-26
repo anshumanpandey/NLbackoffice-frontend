@@ -65,7 +65,7 @@ export const ReviewsPage = () => {
               Cancel
           </Button>
             <Button disabled={deleteReq.loading} style={{ opacity: deleteReq.loading ? 0.5 : 1 }} onClick={() => {
-              doDelete({ url: `/review/delete/${showModal._id}` })
+              doDelete({ url: `/review/delete`, data: { id: showModal._id } })
                 .then(() => setShowModal(false))
                 .then(() => refetch())
             }} color="primary">

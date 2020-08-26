@@ -71,7 +71,7 @@ export const PostsPage = () => {
               Cancel
           </Button>
             <Button disabled={deleteReq.loading} style={{ opacity: deleteReq.loading ? 0.5 : 1 }} onClick={() => {
-              doDelete({ url: `/post/delete/${showModal._id}` })
+              doDelete({ url: `/post/delete`, data: { id: showModal._id } })
                 .then(() => setShowModal(false))
                 .then(() => refetch())
             }} color="primary">
