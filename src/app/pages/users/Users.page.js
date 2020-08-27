@@ -95,7 +95,7 @@ export const OrderPage = () => {
               Cancel
           </Button>
             <Button disabled={deleteReq.loading} style={{ opacity: deleteReq.loading ? 0.5 : 1 }} onClick={() => {
-              doDelete({ url: `/user/delete/${showModal._id}` })
+              doDelete({ url: `/user/delete`, data: { id: showModal._id } })
                 .then(() => setShowModal(false))
                 .then(() => refetch())
             }} color="primary">
