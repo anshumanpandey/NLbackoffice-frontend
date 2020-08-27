@@ -203,6 +203,36 @@ export const PaymentPage = () => {
                 </Link>
               </div>
             </div>
+
+            <div style={{ display: 'flex', flexDirection: 'row' }}>
+              <div className="form-group" style={{ width: '100%' }}>
+                <Typography color="textSecondary">
+                  Reviews
+                </Typography>
+                  {showDetailsModal.Reviews && showDetailsModal.Reviews.length != 0 ? showDetailsModal.Reviews.map((r) => {
+                    return (
+                      <div style={{ display: 'flex', flexDirection: 'row' }}>
+                        <div className="form-group" style={{ width: '50%' }}>
+                          <Typography color="textSecondary">
+                            ID
+                          </Typography>
+                          <Link style={{ color: "blue", textDecoration: 'underline', cursor: 'pointer' }} to={`users/${showDetailsModal.Player?._id}`}>
+                            {r._id}
+                          </Link>
+                        </div>
+                        <div className="form-group" style={{ width: '50%' }}>
+                          <Typography color="textSecondary">
+                            Coach
+                          </Typography>
+                          <Typography>
+                            {r.Feedback}
+                          </Typography>
+                        </div>
+                      </div>
+                    );
+                  }): <Typography>No reviews</Typography>}
+              </div>
+            </div>
           </DialogContent>
           <DialogActions>
             <Button autoFocus onClick={() => setShowDetailsModal(false)} color="primary">
