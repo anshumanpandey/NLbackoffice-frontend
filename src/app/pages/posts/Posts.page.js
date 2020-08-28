@@ -43,6 +43,7 @@ export const PostsPage = () => {
               { name: 'Body', selector: 'Body' },
               { name: 'Posted By', selector: 'User.FullName' },
               { name: 'Media', cell: (row) => {
+                if (!row.MediaURL) return <p>No File</p>
                 const extension = row.MediaURL.split('.').pop()
                 if (extension == "mp4" || extension == "mov") {
                   return <p onClick={() => setShowMediaModal({ ...row, type: 'video'})} style={{ color: "blue", textDecoration: 'underline', cursor: 'pointer'}}>See Video</p>
@@ -91,10 +92,10 @@ export const PostsPage = () => {
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
               {showMediaModal.type == "video" && (
-                <ReactPlayer style={{ marginLeft: "auto", marginRight: "auto"}} controls={true} url={`http://44.233.116.105/NextLevelTrainingApi/${showMediaModal.MediaURL}`} />
+                <ReactPlayer style={{ marginLeft: "auto", marginRight: "auto"}} controls={true} url={`http://44.233.116.105/NextLevelTrainingApi/${showMediaModal?.MediaURL}`} />
               )}
               {showMediaModal.type == "image" && (
-                <img src={`http://44.233.116.105/NextLevelTrainingApi/${showMediaModal.MediaURL}`} />
+                <img src={`http://44.233.116.105/NextLevelTrainingApi/${showMediaModal?.MediaURL}`} />
               )}
           </DialogContentText>
           </DialogContent>

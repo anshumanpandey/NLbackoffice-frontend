@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from "react";
 import useAxios from 'axios-hooks'
 import DataTable from 'react-data-table-component';
-import { useParams } from "react-router-dom";
-import { Dialog, List, ListItem, ListItemText, DialogContent, TextField, DialogContentText, DialogTitle, DialogActions, Button, FormControl, InputLabel, Select, MenuItem, Typography } from '@material-ui/core';
+import { useParams, useHistory } from "react-router-dom";
+import { Dialog, List, ListItem, ListItemText, DialogContent, TextField, DialogContentText, DialogTitle, DialogActions, Button, FormControl, InputLabel, Select, MenuItem, Typography, Chip } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Lightbox } from "react-modal-image";
+import ClearIcon from '@material-ui/icons/Clear';
+import CheckIcon from '@material-ui/icons/Check';
 
 export const OrderPage = () => {
   const params = useParams()
+  const history = useHistory();
   const [showModal, setShowModal] = useState(false);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [showImageModal, setShowImageModal] = useState(false);
+  const [showVerifyModal, setShowVerifyModal] = useState(false);
   const [users, setUsers] = useState([]);
   const [{ data, loading, error }, refetch] = useAxios({
     url: '/user/find'
@@ -21,6 +25,11 @@ export const OrderPage = () => {
     method: "DELETE"
   }, { manual: true })
 
+  const [verifyReq, setVerify] = useAxios({
+    url: '/user/verify/',
+    method: "POST"
+  }, { manual: true })
+
   useEffect(() => {
     refetch()
   }, [])
@@ -28,8 +37,10 @@ export const OrderPage = () => {
   useEffect(() => {
     if (data) {
       setUsers(data)
-      const found = data.find(d => d._id == params.id)
-      if (found) setShowDetailsModal(found)
+      if (params.id) {
+        const found = data.find(d => d._id == params.id)
+        if (found) setShowDetailsModal(found)
+      }
     }
   }, [loading])
 
@@ -465,7 +476,26 @@ export const OrderPage = () => {
                       Is Verified
                     </Typography>
                     <Typography color="textSecondary">
-                      {showDetailsModal?.DBSCeritificate.Verified.toString()}
+                      {showDetailsModal?.DBSCeritificate.Verified == true && (
+                        <Chip
+                          size="small"
+                          color="secondary"
+                          clickable
+                          deleteIcon={<ClearIcon />}
+                          label="Verified"
+                          onDelete={() => setShowVerifyModal({ ...showDetailsModal, entity: "DBSCeritificate" })}
+                        />
+                      )}
+                      {showDetailsModal?.DBSCeritificate.Verified == false && (
+                        <Chip
+                          size="small"
+                          color="primary"
+                          clickable
+                          deleteIcon={<CheckIcon />}
+                          label="Not Verified"
+                          onDelete={() => setShowVerifyModal({ ...showDetailsModal, entity: "DBSCeritificate" })}
+                        />
+                      )}
                     </Typography>
                   </div>
                   <div className="form-group" style={{ width: '33%' }}>
@@ -495,10 +525,29 @@ export const OrderPage = () => {
                   </div>
                   <div className="form-group" style={{ width: '33%' }}>
                     <Typography color="textSecondary">
-                      Type
+                      Is Verified
                     </Typography>
                     <Typography color="textSecondary">
-                      {showDetailsModal?.VerificationDocument.Verified.toString()}
+                    {showDetailsModal?.VerificationDocument.Verified == true && (
+                        <Chip
+                          size="small"
+                          color="secondary"
+                          clickable
+                          deleteIcon={<ClearIcon />}
+                          label="Verified"
+                          onDelete={() => setShowVerifyModal({ ...showDetailsModal, entity: "VerificationDocument" })}
+                        />
+                      )}
+                      {showDetailsModal?.VerificationDocument.Verified == false && (
+                        <Chip
+                          size="small"
+                          color="primary"
+                          clickable
+                          deleteIcon={<CheckIcon />}
+                          label="Not Verified"
+                          onDelete={() => setShowVerifyModal({ ...showDetailsModal, entity: "VerificationDocument" })}
+                        />
+                      )}
                     </Typography>
                   </div>
                   <div className="form-group" style={{ width: '33%' }}>
@@ -703,6 +752,31 @@ export const OrderPage = () => {
           </Button>
           </DialogActions>
         </Dialog>
+
+        {showVerifyModal != false && (
+          <Dialog
+            open={true}
+            onClose={() => setShowVerifyModal(false)}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">{showVerifyModal[showVerifyModal.entity].Verified == false ? `Do you want to verify this ${showVerifyModal.entity}?` : `Do you want to set this ${showVerifyModal.entity} to unverified?`}</DialogTitle>
+            <DialogActions>
+              {console.log(showVerifyModal[showVerifyModal.entity].Verified)}
+              <Button disabled={verifyReq.loading} style={{ opacity: verifyReq.loading ? 0.5 : 1 }} autoFocus onClick={() => setShowVerifyModal(false)} color="primary">
+                Cancel
+          </Button>
+              <Button disabled={verifyReq.loading} style={{ opacity: verifyReq.loading ? 0.5 : 1 }} onClick={() => {
+                setVerify({ data: { id: showVerifyModal._id, entity: showVerifyModal.entity, isVerified: !showVerifyModal[showVerifyModal.entity].Verified } })
+                  .then(() => setShowVerifyModal(false))
+                  .then(() => refetch())
+                  .then(() => history.push(`/users/${showVerifyModal._id}`))
+              }} color="primary">
+                Accept
+          </Button>
+            </DialogActions>
+          </Dialog>
+        )}
       </div>
     </>
   );
