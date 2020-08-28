@@ -37,7 +37,7 @@ function Login(props) {
           </div>
 
           <Formik
-            initialValues={{ email: "super_admin@nextlevel.com", password: "CxQnx5rR" }}
+            initialValues={{ email: "", password: "" }}
             validate={values => {
               const errors = {};
 
