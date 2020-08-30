@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import useAxios from 'axios-hooks'
 import DataTable from 'react-data-table-component';
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { Dialog, DialogContent, DialogContentText, DialogTitle, DialogActions, Button, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ReactPlayer from 'react-player'
@@ -41,9 +41,16 @@ export const ReviewsPage = () => {
             data={users}
             columns={[
               { name: 'Feedback', selector: 'Feedback' },
-              { name: 'Player Name', selector: 'PlayerName' },
-              { name: 'Coach Name', selector: 'CoachName' },
-              { name: 'Rating', selector: 'Coach.FullName' },
+              { name: 'Rating', selector: 'Rating' },
+              {
+                name: 'User', cell: (row) => {
+                  return (
+                    <Link style={{ color: "blue", textDecoration: 'underline', cursor: 'pointer' }} to={`users/${row?.PlayerId}`}>
+                      View Profile
+                    </Link>
+                  );
+                }
+              },
               { name: 'Delete', cell: (row) => <DeleteIcon onClick={() => setShowModal(row)} style={{ cursor: "pointer" }} /> },
             ]}
           />

@@ -7,6 +7,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { Lightbox } from "react-modal-image";
 import ClearIcon from '@material-ui/icons/Clear';
 import CheckIcon from '@material-ui/icons/Check';
+import TableFilter from "../../widgets/TableFilter";
 
 export const OrderPage = () => {
   const params = useParams()
@@ -54,27 +55,7 @@ export const OrderPage = () => {
         <div className="col-md-12">
           <DataTable
             actions={
-              <>
-                <FormControl style={{ width: '30%' }}>
-                  <InputLabel id="demo-simple-select-label">Type</InputLabel>
-                  <Select
-                    fullWidth
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    onChange={(e) => {
-                      if (e.target.value == "ALL") {
-                        setUsers(data)
-                      } else {
-                        setUsers(data.filter(u => u.Role == e.target.value))
-                      }
-                    }}
-                  >
-                    <MenuItem value={"ALL"}>All</MenuItem>
-                    <MenuItem value={"Coach"}>Coaches</MenuItem>
-                    <MenuItem value={"Player"}>Players</MenuItem>
-                  </Select>
-                </FormControl>
-              </>
+              <TableFilter data={data} properties={["FullName", "EmailID"]} onFilter={(results) => setUsers(results)} />
             }
             pagination={true}
             progressPending={loading}
@@ -528,7 +509,7 @@ export const OrderPage = () => {
                       Is Verified
                     </Typography>
                     <Typography color="textSecondary">
-                    {showDetailsModal?.VerificationDocument.Verified == true && (
+                      {showDetailsModal?.VerificationDocument.Verified == true && (
                         <Chip
                           size="small"
                           color="secondary"

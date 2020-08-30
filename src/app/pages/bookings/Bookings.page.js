@@ -4,6 +4,7 @@ import DataTable from 'react-data-table-component';
 import { useParams, Link } from "react-router-dom";
 import { Dialog, List, ListItem, ListItemText, DialogContent, TextField, DialogContentText, DialogTitle, DialogActions, Button, FormControl, InputLabel, Select, MenuItem, Typography } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
+import TableFilter from "../../widgets/TableFilter";
 
 export const PaymentPage = () => {
   const params = useParams()
@@ -35,6 +36,7 @@ export const PaymentPage = () => {
       <div className="row">
         <div className="col-md-12">
           <DataTable
+            actions={<TableFilter hideTypeFilter={true} data={data} properties={["BookingNumber", "TransactionID", "BookingDate", "Player.FullName", "Coach.FullName"]} onFilter={(results) => setUsers(results)} />}
             pagination={true}
             progressPending={loading}
             data={users}

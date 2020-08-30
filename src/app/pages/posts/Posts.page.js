@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import useAxios from 'axios-hooks'
 import DataTable from 'react-data-table-component';
 import { useParams } from "react-router-dom";
-import { Dialog, DialogContent, DialogContentText, DialogTitle, DialogActions, Button, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
+import { Dialog, DialogContent, DialogContentText, DialogTitle, DialogActions, Button, FormControl, InputLabel, Select, MenuItem, TextField } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ReactPlayer from 'react-player'
+import TableFilter from "../../widgets/TableFilter";
 
 export const PostsPage = () => {
   const params = useParams()
@@ -36,6 +37,7 @@ export const PostsPage = () => {
       <div className="row">
         <div className="col-md-12">
           <DataTable
+            actions={<TableFilter hideTypeFilter={true} data={data} properties={["Body", "User.FullName" ]} onFilter={(results) => setUsers(results)} />}
             pagination={true}
             progressPending={loading}
             data={users}
