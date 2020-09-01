@@ -365,7 +365,7 @@ export const OrderPage = () => {
                           </Typography>
                         </div>
                         {e.CurrentlyWorking ? (
-                          <div className="form-group" style={{ display: 'flex' }}>
+                          <div className="form-group" style={{ display: 'flex', flexDirection: 'row' }}>
                             <Typography color="textSecondary">
                               Currently Working
                             </Typography>
