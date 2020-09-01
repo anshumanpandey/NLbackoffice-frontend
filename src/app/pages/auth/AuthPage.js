@@ -26,16 +26,15 @@ export default function AuthPage() {
                 <Link to="/" className="kt-login__logo">
                   <img
                     alt="Logo"
-                    src={toAbsoluteUrl("/media/logos/logo-4.png")}
+                    src={toAbsoluteUrl("/media/logos/NLlogo.png")}
                   />
                 </Link>
               </div>
               <div className="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver">
                 <div className="kt-grid__item kt-grid__item--middle">
-                  <h3 className="kt-login__title">Welcome to Metronic!</h3>
+                  <h3 className="kt-login__title">Welcome to NextLevel Back Office!</h3>
                   <h4 className="kt-login__subtitle">
-                    The ultimate Bootstrap & Angular 6 admin theme framework for
-                    next generation web apps.
+                    Our back office
                   </h4>
                 </div>
               </div>
