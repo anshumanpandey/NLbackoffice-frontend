@@ -41,7 +41,7 @@ export default function AuthPage() {
               <div className="kt-grid__item">
                 <div className="kt-login__info">
                   <div className="kt-login__copyright">
-                    &copy; 2018 Metronic
+                    &copy; 2020 NextLevel
                   </div>
                   <div className="kt-login__menu">
                     <Link to="/terms" className="kt-link">
