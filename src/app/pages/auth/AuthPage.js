@@ -25,6 +25,7 @@ export default function AuthPage() {
               <div className="kt-grid__item">
                 <Link to="/" className="kt-login__logo">
                   <img
+                    style={{ width: '10%'}}
                     alt="Logo"
                     src={toAbsoluteUrl("/media/logos/NLlogo.jpeg")}
                   />
