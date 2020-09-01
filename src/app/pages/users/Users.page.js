@@ -36,7 +36,7 @@ export const OrderPage = () => {
   }, [])
 
   useEffect(() => {
-    if (data) {
+    if (data && loading == false) {
       setUsers(data)
       if (params.id) {
         const found = data.find(d => d._id == params.id)
@@ -750,6 +750,7 @@ export const OrderPage = () => {
               <Button disabled={verifyReq.loading} style={{ opacity: verifyReq.loading ? 0.5 : 1 }} onClick={() => {
                 setVerify({ data: { id: showVerifyModal._id, entity: showVerifyModal.entity, isVerified: !showVerifyModal[showVerifyModal.entity].Verified } })
                   .then(() => setShowVerifyModal(false))
+                  .then(() => setShowDetailsModal(false))
                   .then(() => refetch())
                   .then(() => history.push(`/users/${showVerifyModal._id}`))
               }} color="primary">
