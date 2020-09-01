@@ -37,22 +37,24 @@ export const PostsPage = () => {
       <div className="row">
         <div className="col-md-12">
           <DataTable
-            actions={<TableFilter hideTypeFilter={true} data={data} properties={["Body", "User.FullName" ]} onFilter={(results) => setUsers(results)} />}
+            actions={<TableFilter hideTypeFilter={true} data={data} properties={["Body", "User.FullName"]} onFilter={(results) => setUsers(results)} />}
             pagination={true}
             progressPending={loading}
             data={users}
             columns={[
               { name: 'Body', selector: 'Body' },
               { name: 'Posted By', selector: 'User.FullName' },
-              { name: 'Media', cell: (row) => {
-                if (!row.MediaURL) return <p>No File</p>
-                const extension = row.MediaURL.split('.').pop()
-                if (extension == "mp4" || extension == "mov") {
-                  return <p onClick={() => setShowMediaModal({ ...row, type: 'video'})} style={{ color: "blue", textDecoration: 'underline', cursor: 'pointer'}}>See Video</p>
-                } else {
-                  return <p onClick={() => setShowMediaModal({ ...row, type: 'image'})} style={{ color: "blue", textDecoration: 'underline', cursor: 'pointer'}}>See Image</p>
+              {
+                name: 'Media', cell: (row) => {
+                  if (!row.MediaURL) return <p>No File</p>
+                  const extension = row.MediaURL.split('.').pop()
+                  if (extension == "mp4" || extension == "mov") {
+                    return <p onClick={() => setShowMediaModal({ ...row, type: 'video' })} style={{ color: "blue", textDecoration: 'underline', cursor: 'pointer' }}>See Video</p>
+                  } else {
+                    return <p onClick={() => setShowMediaModal({ ...row, type: 'image' })} style={{ color: "blue", textDecoration: 'underline', cursor: 'pointer' }}>See Image</p>
+                  }
                 }
-              }},
+              },
               { name: 'Delete', cell: (row) => <DeleteIcon onClick={() => setShowModal(row)} style={{ cursor: "pointer" }} /> },
             ]}
           />
@@ -92,14 +94,14 @@ export const PostsPage = () => {
           aria-describedby="alert-dialog-description"
         >
           <DialogContent>
-            <DialogContentText id="alert-dialog-description">
+            <div style={{ display: 'flex', justifyContent: 'center'}}>
               {showMediaModal.type == "video" && (
-                <ReactPlayer style={{ marginLeft: "auto", marginRight: "auto"}} controls={true} url={`http://44.233.116.105/NextLevelTrainingApi/${showMediaModal?.MediaURL}`} />
+                <ReactPlayer style={{ marginLeft: "auto", marginRight: "auto" }} controls={true} url={showMediaModal?.MediaURL} />
               )}
               {showMediaModal.type == "image" && (
-                <img src={`http://44.233.116.105/NextLevelTrainingApi/${showMediaModal?.MediaURL}`} />
+                <img src={showMediaModal?.MediaURL} />
               )}
-          </DialogContentText>
+            </div>
           </DialogContent>
           <DialogActions>
             <Button disabled={deleteReq.loading} style={{ opacity: deleteReq.loading ? 0.5 : 1 }} autoFocus onClick={() => setShowMediaModal(false)} color="primary">
