@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import useAxios from 'axios-hooks'
 import DataTable from 'react-data-table-component';
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, Link } from "react-router-dom";
 import { Dialog, List, ListItem, ListItemText, DialogContent, TextField, DialogContentText, DialogTitle, DialogActions, Button, FormControl, InputLabel, Select, MenuItem, Typography, Chip } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Lightbox } from "react-modal-image";
@@ -44,6 +44,15 @@ export const OrderPage = () => {
       }
     }
   }, [loading])
+
+  useEffect(() => {
+    if (data && loading == false) {
+      if (params.id) {
+        const found = data.find(d => d._id == params.id)
+        if (found) setShowDetailsModal(found)
+      }
+    }
+  }, [params.id])
 
   const handlePopoverClick = (url) => {
     setShowImageModal(url);
@@ -356,7 +365,7 @@ export const OrderPage = () => {
                         </div>
                       </div>
                       <div style={{ display: 'flex', flexDirection: 'row' }}>
-                        <div className="form-group">
+                        <div className="form-group" style={{ width: '50%' }}>
                           <Typography color="textSecondary">
                             Start Date
                           </Typography>
@@ -365,7 +374,7 @@ export const OrderPage = () => {
                           </Typography>
                         </div>
                         {e.CurrentlyWorking ? (
-                          <div className="form-group" style={{ display: 'flex', flexDirection: 'row' }}>
+                          <div className="form-group" style={{ width: '50%' }}>
                             <Typography color="textSecondary">
                               Currently Working
                             </Typography>
@@ -374,7 +383,7 @@ export const OrderPage = () => {
                             </Typography>
                           </div>
                         ) : (
-                            <div className="form-group">
+                            <div className="form-group" style={{ width: '50%' }}>
                               <Typography color="textSecondary">
                                 End Date
                               </Typography>
@@ -681,9 +690,9 @@ export const OrderPage = () => {
                           <Typography color="textSecondary">
                             ID
                           </Typography>
-                          <Typography>
+                          <Link style={{ color: "blue", textDecoration: 'underline', cursor: 'pointer' }} to={`/users/${t._id}`}>
                             {t._id}
-                          </Typography>
+                          </Link>
                         </div>
                         <div className="form-group" style={{ width: '50%' }}>
                           <Typography color="textSecondary">
