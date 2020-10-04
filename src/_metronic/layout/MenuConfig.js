@@ -50,6 +50,13 @@ export default {
         page: "reviews",
         toggle: "click",
       },
+      {
+        title: "ScheduledNotification",
+        root: true,
+        alignment: "left",
+        page: "scheduledNotification",
+        toggle: "click",
+      },
     ]
   }
 };
