@@ -280,6 +280,26 @@ export const OrderPage = () => {
                 </Typography>
               </div>
             </div>
+
+            <div style={{ display: 'flex', flexDirection: 'row' }}>
+              <div className="form-group" style={{ width: '33%' }}>
+                <Typography color="textSecondary">
+                  Is Featured
+                </Typography>
+                <Typography>
+                  {showDetailsModal.Featured ? "Yes" : "No"}
+                </Typography>
+              </div>
+              <div className="form-group" style={{ width: '33%' }}>
+                <Typography color="textSecondary">
+                  Featured Payment ID
+                </Typography>
+                <Typography>
+                  {showDetailsModal.PaypalPaymentId || "N/A"}
+                </Typography>
+              </div>
+            </div>
+
             {showDetailsModal.BankAccount ? (
               <>
                 <Typography variant="h5">Bank Account</Typography>
