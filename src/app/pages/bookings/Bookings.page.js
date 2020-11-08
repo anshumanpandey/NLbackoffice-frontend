@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import useAxios from 'axios-hooks'
 import DataTable from 'react-data-table-component';
 import { useParams, Link } from "react-router-dom";
-import { Dialog, List, ListItem, ListItemText, DialogContent, TextField, DialogContentText, DialogTitle, DialogActions, Button, FormControl, InputLabel, Select, MenuItem, Typography } from '@material-ui/core';
+import { Dialog, DialogContent, DialogContentText, DialogTitle, DialogActions, Button, Typography } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { parseISO, lightFormat } from "date-fns"
 import TableFilter from "../../widgets/TableFilter";
+const { parseFromTimeZone, formatToTimeZone } = require('date-fns-timezone')
 
 export const PaymentPage = () => {
   const params = useParams()
@@ -42,7 +44,6 @@ export const PaymentPage = () => {
             data={users}
             columns={[
               { name: 'Booking Number', selector: 'BookingNumber' },
-              { name: 'Booking Date', selector: 'BookingDate' },
               { name: 'Transaction ID', selector: 'TransactionID' },
               { name: 'Amount', selector: 'Amount' },
               { name: 'Booking Status', selector: 'BookingStatus' },
@@ -98,37 +99,10 @@ export const PaymentPage = () => {
               </div>
               <div className="form-group" style={{ width: '33%' }}>
                 <Typography color="textSecondary">
-                  From Time
-                </Typography>
-                <Typography>
-                  {showDetailsModal.FromTime}
-                </Typography>
-              </div>
-              <div className="form-group" style={{ width: '33%' }}>
-                <Typography color="textSecondary">
-                  To Time
-                </Typography>
-                <Typography>
-                  {showDetailsModal.ToTime}
-                </Typography>
-              </div>
-            </div>
-
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
-              <div className="form-group" style={{ width: '33%' }}>
-                <Typography color="textSecondary">
                   Sent Date
                 </Typography>
                 <Typography>
                   {showDetailsModal.SentDate}
-                </Typography>
-              </div>
-              <div className="form-group" style={{ width: '33%' }}>
-                <Typography color="textSecondary">
-                  Booking Date
-                </Typography>
-                <Typography>
-                  {showDetailsModal.BookingDate}
                 </Typography>
               </div>
               <div className="form-group" style={{ width: '33%' }}>
@@ -140,7 +114,6 @@ export const PaymentPage = () => {
                 </Typography>
               </div>
             </div>
-
             <div style={{ display: 'flex', flexDirection: 'row' }}>
               <div className="form-group" style={{ width: '33%' }}>
                 <Typography color="textSecondary">
@@ -187,6 +160,42 @@ export const PaymentPage = () => {
               </div>
             </div>
 
+            <Typography variant="h6">
+              Sessions
+              </Typography>
+            <div style={{ display: 'flex', flexDirection: 'row' }}>
+              {showDetailsModal?.Sessions?.map(s => {
+                return (
+                  <>
+                    <div className="form-group" style={{ width: '33%' }}>
+                      <Typography color="textSecondary">
+                        From Time
+                      </Typography>
+                      <Typography>
+                        {s.FromTime.split("T")[1].slice(0, 5)}
+                      </Typography>
+                    </div>
+                    <div className="form-group" style={{ width: '33%' }}>
+                      <Typography color="textSecondary">
+                        To Time
+                      </Typography>
+                      <Typography>
+                        {s.ToTime.split("T")[1].slice(0, 5)}
+                      </Typography>
+                    </div>
+                    <div className="form-group" style={{ width: '33%' }}>
+                      <Typography color="textSecondary">
+                        Date of Month
+                      </Typography>
+                      <Typography>
+                        {formatToTimeZone(parseISO(s.BookingDate), "dddd, D-MM-YYYY", { timeZone: 'Etc/UCT'})}
+                      </Typography>
+                    </div>
+                  </>
+                )
+              })}
+            </div>
+
             <div style={{ display: 'flex', flexDirection: 'row' }}>
               <div className="form-group" style={{ width: '50%' }}>
                 <Typography color="textSecondary">
@@ -211,28 +220,28 @@ export const PaymentPage = () => {
                 <Typography color="textSecondary">
                   Reviews
                 </Typography>
-                  {showDetailsModal.Reviews && showDetailsModal.Reviews.length != 0 ? showDetailsModal.Reviews.map((r) => {
-                    return (
-                      <div style={{ display: 'flex', flexDirection: 'row' }}>
-                        <div className="form-group" style={{ width: '50%' }}>
-                          <Typography color="textSecondary">
-                            ID
+                {showDetailsModal.Reviews && showDetailsModal.Reviews.length != 0 ? showDetailsModal.Reviews.map((r) => {
+                  return (
+                    <div style={{ display: 'flex', flexDirection: 'row' }}>
+                      <div className="form-group" style={{ width: '50%' }}>
+                        <Typography color="textSecondary">
+                          ID
                           </Typography>
-                          <Link style={{ color: "blue", textDecoration: 'underline', cursor: 'pointer' }} to={`users/${showDetailsModal.Player?._id}`}>
-                            {r._id}
-                          </Link>
-                        </div>
-                        <div className="form-group" style={{ width: '50%' }}>
-                          <Typography color="textSecondary">
-                            Coach
-                          </Typography>
-                          <Typography>
-                            {r.Feedback}
-                          </Typography>
-                        </div>
+                        <Link style={{ color: "blue", textDecoration: 'underline', cursor: 'pointer' }} to={`users/${showDetailsModal.Player?._id}`}>
+                          {r._id}
+                        </Link>
                       </div>
-                    );
-                  }): <Typography>No reviews</Typography>}
+                      <div className="form-group" style={{ width: '50%' }}>
+                        <Typography color="textSecondary">
+                          Coach
+                          </Typography>
+                        <Typography>
+                          {r.Feedback}
+                        </Typography>
+                      </div>
+                    </div>
+                  );
+                }) : <Typography>No reviews</Typography>}
               </div>
             </div>
           </DialogContent>
