@@ -194,6 +194,14 @@ export const OrderPage = () => {
                   {showDetailsModal?.IsTempPassword?.toString()}
                 </Typography>
               </div>
+              <div className="form-group" style={{ width: '33%' }}>
+                <Typography color="textSecondary">
+                  Device Token
+                </Typography>
+                <Typography>
+                  {showDetailsModal?.deviceToken}
+                </Typography>
+              </div>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'row' }}>
