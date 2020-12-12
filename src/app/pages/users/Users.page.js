@@ -303,7 +303,7 @@ export const OrderPage = () => {
                   Device Token
                 </Typography>
                 <Typography>
-                  {showDetailsModal?.deviceToken}
+                  {showDetailsModal?.DeviceToken || "N/A"}
                 </Typography>
               </div>
             </div>
