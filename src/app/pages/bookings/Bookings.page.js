@@ -24,7 +24,9 @@ export const PaymentPage = () => {
   }, [])
 
   useEffect(() => {
-    refetch()
+    if (params.type) {
+      refetch()
+    }
   }, [params.type])
 
   useEffect(() => {

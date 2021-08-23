@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
 import useAxios from 'axios-hooks'
 import DataTable from 'react-data-table-component';
-import { useParams, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Dialog, DialogContent, DialogContentText, DialogTitle, DialogActions, Button, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
-import ReactPlayer from 'react-player'
 
 export const ReviewsPage = () => {
-  const params = useParams()
   const [showModal, setShowModal] = useState(false);
-  const [showMediaModal, setShowMediaModal] = useState(false);
   const [users, setUsers] = useState([]);
   const [{ data, loading, error }, refetch] = useAxios({
     url: '/review/find'
@@ -23,9 +20,6 @@ export const ReviewsPage = () => {
     refetch()
   }, [])
 
-  useEffect(() => {
-    refetch()
-  }, [params.type])
 
   useEffect(() => {
     if (data) setUsers(data)

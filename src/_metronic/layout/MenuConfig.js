@@ -57,6 +57,20 @@ export default {
         page: "scheduledNotification",
         toggle: "click",
       },
+      {
+        title: "Credit History",
+        root: true,
+        alignment: "left",
+        page: "creditHistory",
+        toggle: "click",
+      },
+      {
+        title: "Leads",
+        root: true,
+        alignment: "left",
+        page: "leads",
+        toggle: "click",
+      },
     ]
   }
 };

@@ -23,11 +23,7 @@ export const PostsPage = () => {
   useEffect(() => {
     refetch()
   }, [])
-
-  useEffect(() => {
-    refetch()
-  }, [params.type])
-
+  
   useEffect(() => {
     if (data) setUsers(data)
   }, [loading])

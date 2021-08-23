@@ -8,6 +8,8 @@ import { LayoutSplashScreen } from "../../../_metronic";
 import { connect } from "react-redux";
 import BookingsPage from "../bookings/Bookings.page";
 import ScheduledNotification from "../scheduledNotification/ScheduledNotification.page";
+import CreditHistory from "../creditHistory/CreditHistory.page";
+import Leads from "../leads/Lead.page";
 import PostsPage from "../posts/Posts.page";
 import ReviewsPage from "../reviews/Reviews.page";
 
@@ -36,6 +38,8 @@ function HomePage(props) {
         <Route path="/users/:id?" component={Users} />
         <Route path="/bookings" component={BookingsPage} />
         <Route path="/scheduledNotification" component={ScheduledNotification} />
+        <Route path="/creditHistory" component={CreditHistory} />
+        <Route path="/leads" component={Leads} />
         <Route path="/posts" component={PostsPage} />
         <Route path="/reviews" component={ReviewsPage} />
         <Route path="/google-material" component={GoogleMaterialPage} />
