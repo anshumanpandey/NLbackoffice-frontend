@@ -9,15 +9,18 @@ export function addCSSClass(ele, cls) {
   ele.classList.add(cls);
 }
 
-export const toAbsoluteUrl = pathname => process.env.PUBLIC_URL + pathname;
+export const capitalize = (s) => (s && s[0].toUpperCase() + s.slice(1)) || "";
+
+export const toAbsoluteUrl = (pathname) => process.env.PUBLIC_URL + pathname;
 
 export function setupAxios(axios, store) {
-  axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+  axios.defaults.baseURL =
+    process.env.REACT_APP_API_URL || "http://localhost:5000/api";
   axios.interceptors.request.use(
-    config => {
-      console.log(`${config.baseURL}${config.url}`)
+    (config) => {
+      console.log(`${config.baseURL}${config.url}`);
       const {
-        auth: { authToken }
+        auth: { authToken },
       } = store.getState();
 
       if (authToken) {
@@ -26,28 +29,32 @@ export function setupAxios(axios, store) {
 
       return config;
     },
-    err => Promise.reject(err)
+    (err) => Promise.reject(err)
   );
 
-  axios.interceptors.response.use(function (response) {
-    // Any status code that lie within the range of 2xx cause this function to trigger
-    // Do something with response data
-    return response;
-  }, function (error) {
-    // Any status codes that falls outside the range of 2xx cause this function to trigger
-    // Do something with response error
-    if (error.response) {
-      // The request was made and the server responded with a status code
-      // that falls out of the range of 2xx
-      console.log(error.response.data);
-      console.log(error.response.status);
-      if (error.response.status == 403) {
-        store.dispatch(actions.logout())
+  axios.interceptors.response.use(
+    function(response) {
+      // Any status code that lie within the range of 2xx cause this function to trigger
+      // Do something with response data
+      return response;
+    },
+    function(error) {
+      // Any status codes that falls outside the range of 2xx cause this function to trigger
+      // Do something with response error
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.log({ error });
+        console.log(error.response.data);
+        console.log(error.response.status);
+        if (error.response.status == 403) {
+          store.dispatch(actions.logout());
+        }
+        console.log(error.response.headers);
       }
-      console.log(error.response.headers);
-    } 
-    return Promise.reject(error);
-  });
+      return Promise.reject(error);
+    }
+  );
 }
 
 /*  removeStorage: removes a key from localStorage and its sibling expiracy key
