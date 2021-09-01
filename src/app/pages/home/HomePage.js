@@ -10,6 +10,7 @@ import BookingsPage from "../bookings/Bookings.page";
 import ScheduledNotification from "../scheduledNotification/ScheduledNotification.page";
 import CreditHistory from "../creditHistory/CreditHistory.page";
 import Leads from "../leads/Lead.page";
+import Messages from "../messages/Messages.page";
 import PostsPage from "../posts/Posts.page";
 import ReviewsPage from "../reviews/Reviews.page";
 
@@ -25,7 +26,7 @@ function HomePage(props) {
   //   console.log('Home page');
   // }, []) // [] - is required if you need only one call
   // https://reactjs.org/docs/hooks-reference.html#useeffect
-  
+
   return (
     <Suspense fallback={<LayoutSplashScreen />}>
       <Switch>
@@ -37,9 +38,13 @@ function HomePage(props) {
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/users/:id?" component={Users} />
         <Route path="/bookings" component={BookingsPage} />
-        <Route path="/scheduledNotification" component={ScheduledNotification} />
+        <Route
+          path="/scheduledNotification"
+          component={ScheduledNotification}
+        />
         <Route path="/creditHistory" component={CreditHistory} />
         <Route path="/leads" component={Leads} />
+        <Route path="/messages" component={Messages} />
         <Route path="/posts" component={PostsPage} />
         <Route path="/reviews" component={ReviewsPage} />
         <Route path="/google-material" component={GoogleMaterialPage} />
@@ -52,7 +57,7 @@ function HomePage(props) {
 }
 
 const mapStateToProps = ({ auth: { user } }) => ({
-  user
+  user,
 });
 
 export default connect(mapStateToProps)(HomePage);

@@ -7,9 +7,9 @@ export default {
         root: true,
         alignment: "left",
         page: "dashboard",
-        translate: "MENU.DASHBOARD"
+        translate: "MENU.DASHBOARD",
       },
-    ]
+    ],
   },
   aside: {
     self: {},
@@ -20,7 +20,7 @@ export default {
         icon: "flaticon2-architecture-and-city",
         page: "dashboard",
         translate: "MENU.DASHBOARD",
-        bullet: "dot"
+        bullet: "dot",
       },
       {
         title: "Users",
@@ -71,6 +71,13 @@ export default {
         page: "leads",
         toggle: "click",
       },
-    ]
-  }
+      {
+        title: "Messages",
+        root: true,
+        alignment: "left",
+        page: "messages",
+        toggle: "click",
+      },
+    ],
+  },
 };
